@@ -1,0 +1,19 @@
+package com.example.aiapp.config;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.reactive.function.client.WebClient;
+
+public class OpenAIConfig {
+
+    @Value("${openai.api.key}")
+    private String apiKey;
+
+    @Bean
+    public WebClient openAiWebClient() {
+        return WebClient.builder()
+                .baseUrl("https://api.openai.com/v1")
+                .defaultHeader("Authorization", "Bearer " + apiKey)
+                .build();
+    }
+}
